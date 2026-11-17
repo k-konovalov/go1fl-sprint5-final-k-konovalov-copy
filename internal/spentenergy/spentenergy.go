@@ -2,6 +2,7 @@ package spentenergy
 
 import (
 	"time"
+	"errors"
 )
 
 // Основные константы, необходимые для расчетов.
@@ -16,13 +17,19 @@ func WalkingSpentCalories(steps int, weight, height float64, duration time.Durat
 	// TODO: реализовать функцию
 }
 
+// Функция принимает количество шагов steps, рост пользователя height и продолжительность активности duration и возвращает количество калорий, которые потребляет пользователь за прошедшее время.
 func RunningSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
-	// TODO: реализовать функцию
+	isParametersNotValid := weight <= 0.0 && height <= 0.0 && steps <= 0
+	if isParametersNotValid {
+		return 0.0, errors.New("Параметры не могут быть меньше нуля")
+	}
+	spentCalories := (weight * MeanSpeed(steps, height, duration) * duration.Minutes()) / minInH
+	return spentCalories, nil
 }
 
 // Функция принимает количество шагов steps, рост пользователя height и продолжительность активности duration и возвращает среднюю скорость.
 func MeanSpeed(steps int, height float64, duration time.Duration) float64 {
-	if (duration == 0) {
+	if (duration.Milliseconds() == 0) {
 		return 0
 	}
 	avgSpeed := Distance(steps, height) / duration.Hours()
