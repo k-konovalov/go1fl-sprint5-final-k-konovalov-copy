@@ -29,7 +29,7 @@ func (t *Training) Parse(datastring string) (err error) {
 	}
 
 	// Steps
-	steps, parseStepErr := strconv.Atoi(strings.ReplaceAll(slice[0], " ", ""))
+	steps, parseStepErr := strconv.Atoi(slice[0])
 	if parseStepErr != nil {
 		return fmt.Errorf("invalid steps value %q: %w", slice[0], parseStepErr)
 	}
