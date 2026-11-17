@@ -24,6 +24,7 @@ func MeanSpeed(steps int, height float64, duration time.Duration) float64 {
 	// TODO: реализовать функцию
 }
 
+// Функция принимает количество шагов и рост пользователя в метрах, а возвращает дистанцию в километрах.
 func Distance(steps int, height float64) float64 {
-	// TODO: реализовать функцию
+	return (float64(steps) * stepLengthCoefficient * height ) / mInKm 
 }
