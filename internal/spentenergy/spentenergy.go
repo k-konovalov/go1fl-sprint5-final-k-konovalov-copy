@@ -33,7 +33,9 @@ func RunningSpentCalories(steps int, weight, height float64, duration time.Durat
 	return spentCalories, nil
 }
 
-// Функция принимает количество шагов steps, рост пользователя height и продолжительность активности duration и возвращает среднюю скорость.
+// MeanSpeed рассчитывает и возвращает среднюю скорость в км/ч
+// по количеству шагов, росту пользователя и длительности активности.
+// Если длительность равна нулю или отрицательна, возвращает 0.
 func MeanSpeed(steps int, height float64, duration time.Duration) float64 {
 	if (duration.Milliseconds() <= 0) {
 		return 0
@@ -42,7 +44,8 @@ func MeanSpeed(steps int, height float64, duration time.Duration) float64 {
 	return avgSpeed
 }
 
-// Функция принимает количество шагов и рост пользователя в метрах, а возвращает дистанцию в километрах.
+// Distance рассчитывает и возвращает дистанцию в километрах
+// по количеству шагов и росту пользователя в метрах.
 func Distance(steps int, height float64) float64 {
 	return (float64(steps) * stepLengthCoefficient * height ) / mInKm 
 }

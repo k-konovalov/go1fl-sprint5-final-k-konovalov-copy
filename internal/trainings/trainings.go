@@ -1,3 +1,5 @@
+// Package trainings предоставляет функционал для разбора строк с данными о тренировках
+// и формирования отформатированной информации о тренировочных активностях (бег или ходьба).
 package trainings
 
 import (
@@ -11,6 +13,8 @@ import (
 	"github.com/Yandex-Practicum/tracker/internal/spentenergy"
 )
 
+// Training хранит данные о тренировке: количество шагов, тип тренировки,
+// длительность, а также персональные данные пользователя.
 type Training struct {
 	Steps int
 	TrainingType string
@@ -18,6 +22,9 @@ type Training struct {
 	personaldata.Personal
 }
 
+// Parse разбирает строку формата "3456,Ходьба,3h00m" и записывает извлечённые
+// значения (шаги, тип тренировки и длительность) в структуру Training.
+// Возвращает ошибку, если формат данных некорректен или значения неположительны.
 func (t *Training) Parse(datastring string) (err error) {
 	if len(datastring) == 0 {
 		return errors.New("empty training data")
@@ -54,6 +61,9 @@ func (t *Training) Parse(datastring string) (err error) {
 	return nil
 }
 
+// ActionInfo формирует и возвращает отформатированную строку с информацией о тренировке,
+// включая тип тренировки, длительность, дистанцию, среднюю скорость и количество сожжённых калорий.
+// Возвращает ошибку для неизвестного типа тренировки или при сбое расчётов.
 func (t Training) ActionInfo() (string, error) {
 	distance := strconv.FormatFloat(spentenergy.Distance(t.Steps, t.Height), 'f', 2, 64)
 	duration := strconv.FormatFloat(t.Duration.Hours(), 'f', 2, 64)

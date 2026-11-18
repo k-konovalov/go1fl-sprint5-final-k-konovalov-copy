@@ -1,3 +1,5 @@
+// Package daysteps предоставляет функционал для разбора строк с данными о прогулках
+// и формирования отформатированной информации о дневной ходьбе.
 package daysteps
 
 import (
@@ -11,12 +13,17 @@ import (
 	"github.com/Yandex-Practicum/tracker/internal/spentenergy"
 )
 
+// DaySteps хранит данные о дневной прогулке: количество шагов,
+// длительность, а также персональные данные пользователя.
 type DaySteps struct {
 	Steps int
 	Duration time.Duration
 	personaldata.Personal
 }
 
+// Parse разбирает строку формата "678,0h50m" и записывает извлечённые
+// значения (шаги и длительность) в структуру DaySteps.
+// Возвращает ошибку, если формат данных некорректен или значения неположительны.
 func (ds *DaySteps) Parse(datastring string) (err error) {
 	if len(datastring) == 0 {
 		return errors.New("empty daysteps data")
@@ -50,6 +57,9 @@ func (ds *DaySteps) Parse(datastring string) (err error) {
 	return nil
 }
 
+// ActionInfo формирует и возвращает отформатированную строку с информацией о прогулке,
+// включая количество шагов, дистанцию и количество сожжённых калорий.
+// Возвращает ошибку при сбое расчётов или некорректных входных значениях.
 func (ds DaySteps) ActionInfo() (string, error) {
 	if ds.Steps <= 0 || ds.Duration.Milliseconds() <= 0 {
 		return "", errors.New("steps and duration must be positive")
