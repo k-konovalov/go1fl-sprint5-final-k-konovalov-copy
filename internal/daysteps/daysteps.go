@@ -24,7 +24,7 @@ func (ds *DaySteps) Parse(datastring string) (err error) {
 
 	slice := strings.SplitN(datastring, ",", 2)
 	if len(slice) != 2 {
-		return fmt.Errorf("invalid daysteps format: expected 3 fields (steps, type, duration), got %d", len(slice))
+		return fmt.Errorf("invalid daysteps format: expected 2 fields (steps, type, duration), got %d", len(slice))
 	}
 
 	// Steps
